@@ -1,4 +1,4 @@
-import { test } from '@playwright/test'
+import { test, TestInfo } from '@playwright/test'
 import { Workbook } from 'exceljs'
 import { runSheet } from './actions'
 import {
@@ -8,8 +8,7 @@ import {
 } from './consts'
 import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER } from './lib'
 
-test('check all', async ({ page, context }) => {
-  // console.log(context.br)
+test('check all', async ({ page, context }, testInfo) => {
 
   TOTAL_TIMER.start()
   logAll('NOW:', humanNowDateTime())
@@ -41,10 +40,10 @@ test('check all', async ({ page, context }) => {
   for (const sn of sheets) {
     const sheet = wb.getWorksheet(sn) //ISSUE! sometimes.
     logAll()
-    logAll('Runnning sheet:', sn, sheet.name, `- ${sheet.rowCount} row(s)`)
+    logAll('Running sheet:', sn, sheet.name, `- ${sheet.rowCount} row(s)`)
     logAll('---- ---- ---- ----')
     SHEET_TIMER.start()
-    await runSheet(sheet, page, context)
+    await runSheet(sheet, page, context, testInfo, 0, 0)
     logSheetClose()
     logAll()
   }

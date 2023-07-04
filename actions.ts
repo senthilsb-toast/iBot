@@ -4,6 +4,7 @@ import {
   Locator,
   FrameLocator,
   BrowserContext,
+  TestInfo,
 } from "@playwright/test";
 import { Worksheet } from "exceljs";
 import {
@@ -21,10 +22,182 @@ import {
 import { IFmgr } from "./ifmgr";
 import { ACTION, DATA, LOCATOR, MAX_EMPTIES, TRACE } from "./consts";
 
-export async function runSheet(
+export function getTestCases(
   sheet: Worksheet,
   page: Page,
   context: BrowserContext
+  ){
+  let empties = 0;
+
+
+
+  let boolIf = false;
+  let testCases = new Map<number,string>();
+  let testCase = ''
+  const vars = {};
+
+  end: for (let i = 2; i <= sheet.rowCount; i++) {
+
+    ACTION_TIMER.start();
+
+    const row = sheet.getRow(i);
+    const cells: string[] = [""]; // NOTE: to allow 1 based cell count.
+    for (let i = 1; i < 10; i++) {
+      // NOTE: only 10 cells considered.
+      cells.push(nullempty(row.getCell(i).value));
+    }
+
+    const isHidden = row.hidden;
+    const action = row.getCell(ACTION);
+    const locator = row.getCell(LOCATOR);
+    const data = row.getCell(DATA);
+
+    if (locator.value == null && action.value == null && data.value == null) {
+      empties += 1;
+      if (empties >= MAX_EMPTIES) break;
+      continue
+    } else {
+      empties = 0;
+    }
+
+    if (action.isMerged || action.value == null || isHidden)
+      logCommentRow(i, cells);
+    else {
+      // General stuff: parse locator (l), action (a) and data (d)
+      const raw_l = locator.value ? locator.value.toString() : "";
+      const l = replaceVars(raw_l, vars);
+
+      const raw_d = data.value ? data.value.toString() : "";
+      const d = replaceVars(raw_d, vars);
+
+      const raw_a = action.value.toString();
+
+      // Note down NEGATIVE events, or events!
+      const parts1: string[] = raw_a.split("?");
+      const main_a = parts1[0].trim().toLowerCase();
+      const event = parts1.length > 1 ? parts1[1].trim().toLowerCase() : null;
+      // if (event) logAll('found event!', event)
+
+      // Comma separator in action for Timeout in seconds
+      const parts: string[] = main_a.split(",");
+      const a = parts[0].trim().toLowerCase();
+      testCase = a;
+
+      if ((boolIf) && (a == "endif")) {
+        boolIf = false;
+        continue;
+      }
+      if (boolIf) continue;
+   
+
+      try {
+        switch (a) {
+          case "url":  break;
+          case "title": break;
+            
+          case "title:exact": break;
+      
+          case "attrib:href":break;
+            
+          case "attrib:href:exact":
+            
+            break;
+          case "assert":  break;
+          case "assert:value":
+            
+            break;
+          case "assert:value:exact":
+            
+            break;
+          case "assert:exact": break;
+          case "exists":  break;
+          case "exists:not": break;
+          case "keys":  break;
+          case 'dnd':  break;
+          //TBD: Is it working?!
+          case "click": break;
+          case "dblclick": break;
+          case "click:text":
+          case "link:text":
+            
+            break;
+          case "dblclick:text":
+           
+            break;
+
+          case "click:tab":
+
+            break;
+          case "tab:back":  break;
+
+          case "key": break;
+          case "key:enter": break;
+          case "select":  break;
+          case "file":  break;
+
+          //add multiple files from Browser Open Dialog
+          case "files":
+            break;
+          //Take a ScreenShot
+          case "screenshot": break; 
+          case "frame":
+          case "iframe":
+           
+            break;
+          case "frame:back":
+          case "iframe:back":  break;
+
+          case "script":
+            
+            break;
+          case "sleep":
+            
+            break;
+          case "noop": break;
+          case "end": break end;
+          case "show":
+            
+            break;
+          case "show:value":
+           
+            break;
+          case "wait":
+            
+            break;
+          case "wait:all":
+           
+            break;
+          case "print":  break;
+          case "pause":
+           
+            break;
+          case "if": boolIf = true; break;
+          case "endif": break;
+          case "var":
+            
+            break;
+          case "var:set":  break;
+          default: logWarn("Unknown Action", a);
+        }
+      } catch (err) {
+         logAll(i, "ERROR: ", err.message);
+      }
+      //logActionRow(i, cells);
+
+    }
+    testCases.set(i, testCase)
+    //if(TRACE) logAll(i, cells);
+  }
+  return testCases;
+}
+
+export async function runSheet(
+  sheet: Worksheet,
+  page: Page,
+  context: BrowserContext,
+  testInfo: TestInfo,
+  startRow: number = 0,
+  endRow: number = 0,
 ) {
   let empties = 0;
 
@@ -37,7 +210,9 @@ export async function runSheet(
   const ifmgr = new IFmgr();
   const vars = {};
 
-  end: for (let i = 2; i <= sheet.rowCount; i++) {
+  if (startRow==0) startRow = 2;
+  if (endRow==0) endRow = sheet.rowCount;
+  end: for (let i = startRow; i <= endRow; i++) {
     ACTION_TIMER.start();
 
     const row = sheet.getRow(i);
@@ -78,7 +253,7 @@ export async function runSheet(
       const event = parts1.length > 1 ? parts1[1].trim().toLowerCase() : null;
       // if (event) logAll('found event!', event)
 
-      // Comma seperator in action for Timeout in seconds
+      // Comma separator in action for Timeout in seconds
       const parts: string[] = main_a.split(",");
       const a = parts[0].trim().toLowerCase();
       let tos = {};
@@ -95,8 +270,6 @@ export async function runSheet(
         if (a == "endif") ifmgr.handleEndIf("", i); // endif always resets one level.
         continue; // skip line
       }
-
-      // await browserType.browser()..launchPersistentContext('.', { downloadsPath})
 
       try {
         switch (a) {
@@ -124,7 +297,7 @@ export async function runSheet(
           case "exists": await expect(loc).not.toHaveCount(0, tos); break;
           case "exists:not": await expect(loc).toHaveCount(0, tos); break;
           case "keys": await loc.fill(d, tos); break;
-          case 'dnd': await page.dragAndDrop(l, d, tos); break
+          case 'dnd': await page.dragAndDrop(l, d, tos); break 
           //TBD: Is it working?!
           case "click": await loc.click(tos); break;
           case "dblclick": await loc.dblclick(tos); break;
@@ -153,15 +326,19 @@ export async function runSheet(
           case "file": loc.setInputFiles(d); break;
 
           //add multiple files from Browser Open Dialog
+          //bug fix for on page event changed to Promise
           case "files":
-            page.on("filechooser", async (filechooser) => {
-              logAll("fileChooser", d);
-              await filechooser.setFiles(d.split(","));
-            });
+            logAll("fileChooser", d);
+            const fileChooserPromise = page.waitForEvent('filechooser');
             await page.click(l, { force: true });
+            const fileChooser = await fileChooserPromise;
+            await fileChooser.setFiles(d.split(","));
             break;
           //Take a ScreenShot
-          case "screenshot": await page.screenshot({ path: d, fullPage: true }); break;
+          case "screenshot": 
+          const screenshot = await page.screenshot({ fullPage: true }); 
+            await testInfo.attach('screenshot', { body: screenshot, contentType: 'image/png' });
+            break; 
           case "frame":
           case "iframe":
             ctxStack.push(ctx);

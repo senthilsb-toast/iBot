@@ -1,9 +1,10 @@
-**iBot 2.14.0**<br>
-*2023-04-03 Monday*<br>
+**iBot 3.00.0**<br>
+*2023-01-12 Thursday*<br>
 
 Prerequisites:
 --------------
-Install [nodejs](https://nodejs.org/en/download/) 16+ (LTS)
+Install [nodejs](https://nodejs.org/en/download/) 16+ (LTS)<br>
+Install [jre(jdk)](https://www.java.com/en/download/) 8+
 
 
 Install:
@@ -22,18 +23,28 @@ Run:
 ```
 npx playwright test
 ```
+This command runs all the test cases in the excel with in a single test case. Test results are captured in `output.log` 
+
+windows 
+```
+runtest.bat
+```
+mac 
+```
+sh runtest.sh
+```
+This command runs each excel sheet in `test.describe` and each test in excel sheet are run as separate test case. Generates the <b>Allure Report</b> for playwright https://docs.qameta.io/allure/
+
+![alt text](./media/allurereport.png)
 
 Release Notes:
 --------------
+**3.0.0** (12 January 2023)<br>
+Added Allure Report
+Run each excel sheet in `test.describe` each test in separate test case  
+Added screenshot action to test case `screenshot` integrated with Allure Report
 
-**2.14.0** (3rd April 2023, Monday)<br>
-Three new locators matching codegen - beta. 
-
-1. `!<role>|<name>|<true>` locator to match codgen getByRole
-2. `!!<input>` locator to match codgen getByPlaceholder
-3. `!!!<text>` locator to match codgen getByText
-4. `reload` action to reload the page.
-
+`runtest.bat` and `runtest.sh` command file added 
 
 **2.13.0** (29 September 2022, Thursday)<br>
 assert value and text. clarify non-regex escape. 
