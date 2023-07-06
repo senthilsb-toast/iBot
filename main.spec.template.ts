@@ -12,6 +12,7 @@ import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIM
 let page: Page;
 let ctx: BrowserContext;
 const wb = new Workbook();
+const vars = {};
 
 test.describe('iBot Tests',()=>{
 

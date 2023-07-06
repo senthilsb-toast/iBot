@@ -8,6 +8,8 @@ import {
 } from './consts'
 import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER } from './lib'
 
+
+const vars = {};
 test('check all', async ({ page, context }, testInfo) => {
 
   TOTAL_TIMER.start()
@@ -43,7 +45,7 @@ test('check all', async ({ page, context }, testInfo) => {
     logAll('Running sheet:', sn, sheet.name, `- ${sheet.rowCount} row(s)`)
     logAll('---- ---- ---- ----')
     SHEET_TIMER.start()
-    await runSheet(sheet, page, context, testInfo, 0, 0)
+    await runSheet(sheet, page, context, testInfo, 0, 0, vars)
     logSheetClose()
     logAll()
   }

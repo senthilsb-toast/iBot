@@ -198,6 +198,7 @@ export async function runSheet(
   testInfo: TestInfo,
   startRow: number = 0,
   endRow: number = 0,
+  vars: {},
 ) {
   let empties = 0;
 
@@ -208,7 +209,7 @@ export async function runSheet(
   let ctx: Page | FrameLocator = page;
 
   const ifmgr = new IFmgr();
-  const vars = {};
+
 
   if (startRow==0) startRow = 2;
   if (endRow==0) endRow = sheet.rowCount;
