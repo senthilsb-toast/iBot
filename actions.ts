@@ -398,8 +398,13 @@ export async function runSheet(
           default: logWarn("Unknown Action", a);
         }
       } catch (err) {
-        if (event) ifmgr.handleEvent(event, i);
-        else logAll(i, "ERROR: ", err.message);
+        if (event) {
+          ifmgr.handleEvent(event, i)
+        }
+        else {
+          logAll(i, "ERROR: ", err.message);
+          testInfo.fail();
+        }
       }
       logActionRow(i, cells);
     }
