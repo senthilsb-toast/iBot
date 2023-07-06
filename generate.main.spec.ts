@@ -89,10 +89,11 @@ test.describe('iBot Tests',()=>{
                 \n`)
                 }              
     })
-    const mainspec = syncReadFile('./main.spec.template.ts')
-    let newmainspec = mainspec.replace('/*{{code}}*/',codeSheet)
-    syncWriteFile('./main.spec.runEachTest.ts',newmainspec)
-    logAll('main.spec.runEachTest.ts file generated')
+    const templatefile = syncReadFile('./main.spec.template.ts')
+    let generatedtestfile = templatefile.replace('/*{{code}}*/',codeSheet)
+    syncWriteFile('./main.runeachtest.spec.ts',generatedtestfile)
+    await page.waitForTimeout(2 * 1000);
+    logAll('main.runeachtest.spec.ts file generated')
   })
 })
 
