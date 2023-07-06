@@ -1,4 +1,4 @@
-import { test} from '@playwright/test'
+import { BrowserContext, Page, test, TestInfo } from '@playwright/test'
 import { Workbook } from 'exceljs'
 import { log } from 'handlebars/runtime'
 import { runSheet, getTestCases } from './actions'
@@ -10,8 +10,8 @@ import {
 import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER, syncReadFile,syncWriteFile } from './lib'
 
 //global page and context
-let page;
-let ctx;
+let page: Page;
+let ctx: BrowserContext;
 const wb = new Workbook()
 
 test.describe('iBot Tests',()=>{
@@ -41,8 +41,8 @@ test.describe('iBot Tests',()=>{
     wb.eachSheet((worksheet, sheetId) => {
       logAll(sheetId, worksheet.name);
     })
-    ctx = await browser.newContext();
-    page = await ctx.newPage();
+    ctx ??= await browser.newContext();
+    page ??= await ctx.newPage();
   });
 
   test.afterAll(async ({ browser }) => {
