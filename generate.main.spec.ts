@@ -72,7 +72,7 @@ test.describe('iBot Tests',()=>{
               codeTestCase += (
                 `
                 test('${worksheet.name}  -- ${String(index).padStart(3, '0')}-${value}', async({}, testInfo)=>{
-                  await runSheet(wb.getWorksheet('${worksheet.name}'), page, ctx, testInfo, ${index}, ${nextIndex}, vars)
+                  await runSheet(wb.getWorksheet('${worksheet.name}'), page, ctx, testInfo, ifmgr, ${index}, ${nextIndex}, vars)
                 })
                             
                 `)
