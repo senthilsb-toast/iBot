@@ -196,6 +196,7 @@ export async function runSheet(
   page: Page,
   context: BrowserContext,
   testInfo: TestInfo,
+  ifmanager: IFmgr,
   startRow: number = 0,
   endRow: number = 0,
   vars: {},
@@ -208,7 +209,7 @@ export async function runSheet(
   const ctxStack: (Page | FrameLocator)[] = [];
   let ctx: Page | FrameLocator = page;
 
-  const ifmgr = new IFmgr();
+  const ifmgr = ifmanager;
 
 
   if (startRow==0) startRow = 2;
