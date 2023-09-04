@@ -5,8 +5,8 @@ import {
   ACTION, ACTION_FORMAT, COMMENT_FORMAT,
   DATA, FILE, humanNowDateTime, LOCATOR, PRINT_FORMAT,
   SHEET, TRACE, TRACE_FORMAT,SMTP_HOST,SMTP_PORT,SMTP_USERNAME,SMTP_PASSWORD, SMTP_SENDER, SMTP_TO
-} from './consts'
-import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER } from './lib'
+} from '../consts'
+import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER } from '../lib'
 
 test.describe('iBot Tests Send Email',()=>{
 

@@ -1,13 +1,13 @@
 import { BrowserContext, Page, test, TestInfo } from '@playwright/test'
 import { Workbook } from 'exceljs'
 import { log } from 'handlebars/runtime'
-import { runSheet, getTestCases } from './actions'
+import { runSheet, getTestCases } from '../actions'
 import {
   ACTION, ACTION_FORMAT, COMMENT_FORMAT,
   DATA, FILE, humanNowDateTime, LOCATOR, PRINT_FORMAT,
   SHEET, TRACE, TRACE_FORMAT,
-} from './consts'
-import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER, syncReadFile,syncWriteFile } from './lib'
+} from '../consts'
+import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER, syncReadFile,syncWriteFile } from '../lib'
 
 //global page and context
 let page: Page;
@@ -17,7 +17,7 @@ const vars = {};
 
 test.describe('iBot Tests',()=>{
  
-  test.beforeAll(async ({browser}) => {
+  test.beforeAll(async ({browser}, use) => {
     logAll('Before tests start...')
     TOTAL_TIMER.start()
     logAll('NOW:', humanNowDateTime())
@@ -72,7 +72,7 @@ test.describe('iBot Tests',()=>{
               codeTestCase += (
                 `
                 test('${worksheet.name}  -- ${String(index).padStart(3, '0')}-${value}', async({}, testInfo)=>{
-                  await runSheet(wb.getWorksheet('${worksheet.name}'), page, ctx, testInfo, ifmgr, ${index}, ${nextIndex}, vars)
+                  await runSheetEachTest(wb.getWorksheet('${worksheet.name}'), pag, ctx, testInfo, ifmgr, ${index}, ${nextIndex}, vars)
                 })
                             
                 `)
@@ -90,11 +90,11 @@ test.describe('iBot Tests',()=>{
                 \n`)
                 }              
     })
-    const templatefile = syncReadFile('./main.spec.template.ts')
+    const templatefile = syncReadFile('./tests/testcase.template.spec.ts') 
     let generatedtestfile = templatefile.replace('/*{{code}}*/',codeSheet)
-    syncWriteFile('./main.runeachtest.spec.ts',generatedtestfile)
+    syncWriteFile('./runeachtest.spec.ts',generatedtestfile)
     await page.waitForTimeout(2 * 1000);
-    logAll('main.runeachtest.spec.ts file generated')
+    logAll('runeachtest.spec.ts file generated')
   })
 })
 

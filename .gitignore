@@ -3,3 +3,4 @@ allure*/
 test-results/
 output.log
 _
+.DS_Store

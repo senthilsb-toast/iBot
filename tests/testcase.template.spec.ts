@@ -1,6 +1,6 @@
-import { BrowserContext, Page, test, TestInfo } from '@playwright/test'
+import { BrowserContext, type Page, test, TestInfo } from '@playwright/test'
 import { Workbook } from 'exceljs'
-import { runSheet } from './actions'
+import { runSheet, runSheetEachTest } from './actions'
 import { IFmgr } from "./ifmgr";
 import {
   ACTION, ACTION_FORMAT, COMMENT_FORMAT,
@@ -9,19 +9,22 @@ import {
 } from './consts'
 import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER } from './lib'
 
-//global page and context
-let page: Page;
+
+
+let pag: Page;
 let ctx: BrowserContext;
+
 const wb = new Workbook();
 const vars = {};
-const ifmgr = new IFmgr(); 
+const ifmgr = new IFmgr();
 let onStart = true;
 
-test.describe('iBot Tests',()=>{
+test.describe.configure({ mode: 'serial' });
 
+test.describe('iBot Tests', () => {
 
   test.beforeAll(async ({browser}) => {
-    if (onStart){
+    if (onStart) {
       logAll('Before iBot Tests...')
       logAll('NOW:', humanNowDateTime())
       logAll('FILE:', FILE)
@@ -39,22 +42,23 @@ test.describe('iBot Tests',()=>{
       TOTAL_TIMER.start()
       await wb.xlsx.readFile(FILE!)
     }
-    
+
     //Init the context and page for all the test cases
-    ctx ??= await browser.newContext();
-    page ??= await ctx.newPage();
+    // ctx ??= await browser.contexts[0];
+    pag ??= await browser.newPage();
+    ctx ??= pag.context();
     onStart = false;
   });
 
-  test.afterAll(async ({ browser }) => {
+  test.afterAll(async ({browser, page}) => {
     logAll('After iBot Tests...')
     logAll('----')
     logAll('TOTAL TIME:', TOTAL_TIMER.end())
     logAll('TOTAL ACTIONS:', TOTAL_SUMMARY.actions)
     logAll('---------- xxxx ----------')
     logAll()
-    //browser.close;
+    //pag = page;
   })
-//Placeholder for the generated code 
+  //Placeholder for the generated code 
   /*{{code}}*/
 })
