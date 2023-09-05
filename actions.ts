@@ -73,13 +73,13 @@ export async function runSheet(
 
       let raw_a = action.value.toString();
 
-      // is soft except
-      const customExpect = expect;
-      const soft: string[] = raw_a.split("|");
-      raw_a = soft[0].trim().toLowerCase();
-      if (soft.length > 1) {
-        const customExpect = soft[1].trim().toLowerCase() == 'soft' ? expect.configure({ soft: true }) : expect;
-      }
+      // // is soft except
+      // const customExpect = expect;
+      // const soft: string[] = raw_a.split("|");
+      // raw_a = soft[0].trim().toLowerCase();
+      // if (soft.length > 1) {
+      //   const customExpect = soft[1].trim().toLowerCase() == 'soft' ? expect.configure({ soft: true }) : expect;
+      // }
       
       // Note down NEGATIVE events, or events!
       const parts1: string[] = raw_a.split("?");
@@ -111,27 +111,27 @@ export async function runSheet(
         switch (a) {
           case "url": await page.goto(l); break;
           case "title":
-            await customExpect.soft(ctx as Page).toHaveTitle(rexss(d), tos);
+            await expect(ctx as Page).toHaveTitle(rexss(d), tos);
             break;
           case "title:exact":
-            await customExpect(ctx as Page).toHaveTitle(d, tos);
+            await expect(ctx as Page).toHaveTitle(d, tos);
             break;
           case "attrib:href":
-            await customExpect(loc).toHaveAttribute("href", rexss(d), tos);
+            await expect(loc).toHaveAttribute("href", rexss(d), tos);
             break;
           case "attrib:href:exact":
-            await customExpect(loc).toHaveAttribute("href", d, tos);
+            await expect(loc).toHaveAttribute("href", d, tos);
             break;
-          case "assert": await customExpect(loc).toHaveText(rexss(d), tos); break;
+          case "assert": await expect(loc).toHaveText(rexss(d), tos); break;
           case "assert:value":
-            await customExpect(loc).toHaveValue(rexss(d), tos);
+            await expect(loc).toHaveValue(rexss(d), tos);
             break;
           case "assert:value:exact":
-            await customExpect(loc).toHaveValue(d, tos);
+            await expect(loc).toHaveValue(d, tos);
             break;
-          case "assert:exact": await customExpect(loc).toHaveText(d, tos); break;
-          case "exists": await customExpect(loc).not.toHaveCount(0, tos); break;
-          case "exists:not": await customExpect(loc).toHaveCount(0, tos); break;
+          case "assert:exact": await expect(loc).toHaveText(d, tos); break;
+          case "exists": await expect(loc).not.toHaveCount(0, tos); break;
+          case "exists:not": await expect(loc).toHaveCount(0, tos); break;
           case "keys": await loc.fill(d, tos); break;
           case 'dnd': await page.dragAndDrop(l, d, tos); break
           //TBD: Is it working?!
@@ -299,13 +299,13 @@ export async function runSheetEachTest(
 
       let raw_a = action.value.toString();
 
-      // is soft except
-      const customExpect = expect.configure({ soft: true });
-      const soft: string[] = raw_a.split("|");
-      raw_a = soft[0].trim().toLowerCase();
-      // if (soft.length > 1) {
-      //   const customExpect = soft[1].trim().toLowerCase() == 'soft' ? expect.configure({ soft: true }) : expect;
-      // }
+      // // is soft except
+      // const customExpect = expect.configure({ soft: true });
+      // const soft: string[] = raw_a.split("|");
+      // raw_a = soft[0].trim().toLowerCase();
+      // // if (soft.length > 1) {
+      // //   const customExpect = soft[1].trim().toLowerCase() == 'soft' ? expect.configure({ soft: true }) : expect;
+      // // }
 
       // Note down NEGATIVE events, or events!
       const parts1: string[] = raw_a.split("?");
@@ -338,30 +338,30 @@ export async function runSheetEachTest(
         switch (a) {
           case "url": await page.goto(l); break;
           case "title":
-            await customExpect.soft(ctx as Page).toHaveTitle(rexss(d), tos);
+            await expect(ctx as Page).toHaveTitle(rexss(d), tos);
             break;
           case "title:exact":
-            await customExpect(ctx as Page).toHaveTitle(d, tos);
+            await expect(ctx as Page).toHaveTitle(d, tos);
             break;
           case "attrib:href":
-            await customExpect(loc).toHaveAttribute("href", rexss(d), tos);
+            await expect(loc).toHaveAttribute("href", rexss(d), tos);
             break;
           case "attrib:href:exact":
-            await customExpect(loc).toHaveAttribute("href", d, tos);
+            await expect(loc).toHaveAttribute("href", d, tos);
             break;
           case "assert":
-            await customExpect(loc).toBeVisible();// check for if
-            await customExpect(loc).toHaveCount(1, tos);// check for ifs   
-            await customExpect(loc).toHaveText(rexss(d), tos); break;
+            await expect(loc).toBeVisible();// check for if
+            await expect(loc).toHaveCount(1, tos);// check for ifs   
+            await expect(loc).toHaveText(rexss(d), tos); break;
           case "assert:value":
-            await customExpect(loc).toHaveValue(rexss(d), tos);
+            await expect(loc).toHaveValue(rexss(d), tos);
             break;
           case "assert:value:exact":
-            await customExpect(loc).toHaveValue(d, tos);
+            await expect(loc).toHaveValue(d, tos);
             break;
-          case "assert:exact": await customExpect(loc).toHaveText(d, tos); break;
-          case "exists": await customExpect(loc).not.toHaveCount(0, tos); break;
-          case "exists:not": await customExpect(loc).toHaveCount(0, tos); break;
+          case "assert:exact": await expect(loc).toHaveText(d, tos); break;
+          case "exists": await expect(loc).not.toHaveCount(0, tos); break;
+          case "exists:not": await expect(loc).toHaveCount(0, tos); break;
           case "keys": await loc.fill(d, tos); break;
           case 'dnd': await page.dragAndDrop(l, d, tos); break
           //TBD: Is it working?!

@@ -4,3 +4,6 @@ test-results/
 output.log
 _
 .DS_Store
+/test-results/
+/playwright-report/
+/playwright/.cache/
