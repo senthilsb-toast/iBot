@@ -8,7 +8,7 @@ async function globalSetup(config: FullConfig) {
 
         dotenv.config({
             path:`.env.${process.env.test_env}`,
-            override: true
+            override: true,
         })
     }
     
