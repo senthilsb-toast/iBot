@@ -60,49 +60,34 @@ test.describe('iBot Tests', () => {
     //pag = page;
   })
   //Placeholder for the generated code 
-  test.describe('Run Sheet key',()=>{
+  test.describe('Run Sheet timeout',()=>{
                   logAll()
-                  logAll('Running sheet: key - 11 row(s)')
+                  logAll('Running sheet: timeout - 7 row(s)')
                   logAll('---- ---- ---- ----')
                   SHEET_TIMER.start()
                   
-                test('key  -- 003-url', async({}, testInfo)=>{
-                  await runSheetEachTest(wb.getWorksheet('key'), pag, ctx, testInfo, ifmgr, 3, 3, vars)
+                test('timeout  -- 003-url', async({}, testInfo)=>{
+                  await runSheetEachTest(wb.getWorksheet('timeout'), pag, ctx, testInfo, ifmgr, 3, 3, vars)
                 })
                             
                 
-                test('key  -- 004-title', async({}, testInfo)=>{
-                  await runSheetEachTest(wb.getWorksheet('key'), pag, ctx, testInfo, ifmgr, 4, 4, vars)
+                test('timeout  -- 004-title', async({}, testInfo)=>{
+                  await runSheetEachTest(wb.getWorksheet('timeout'), pag, ctx, testInfo, ifmgr, 4, 4, vars)
                 })
                             
                 
-                test('key  -- 005-click:text', async({}, testInfo)=>{
-                  await runSheetEachTest(wb.getWorksheet('key'), pag, ctx, testInfo, ifmgr, 5, 6, vars)
+                test('timeout  -- 005-assert:exact', async({}, testInfo)=>{
+                  await runSheetEachTest(wb.getWorksheet('timeout'), pag, ctx, testInfo, ifmgr, 5, 5, vars)
                 })
                             
                 
-                test('key  -- 007-assert', async({}, testInfo)=>{
-                  await runSheetEachTest(wb.getWorksheet('key'), pag, ctx, testInfo, ifmgr, 7, 7, vars)
+                test('timeout  -- 006-click', async({}, testInfo)=>{
+                  await runSheetEachTest(wb.getWorksheet('timeout'), pag, ctx, testInfo, ifmgr, 6, 6, vars)
                 })
                             
                 
-                test('key  -- 008-key', async({}, testInfo)=>{
-                  await runSheetEachTest(wb.getWorksheet('key'), pag, ctx, testInfo, ifmgr, 8, 8, vars)
-                })
-                            
-                
-                test('key  -- 009-assert', async({}, testInfo)=>{
-                  await runSheetEachTest(wb.getWorksheet('key'), pag, ctx, testInfo, ifmgr, 9, 9, vars)
-                })
-                            
-                
-                test('key  -- 010-key', async({}, testInfo)=>{
-                  await runSheetEachTest(wb.getWorksheet('key'), pag, ctx, testInfo, ifmgr, 10, 10, vars)
-                })
-                            
-                
-                test('key  -- 011-assert', async({}, testInfo)=>{
-                  await runSheetEachTest(wb.getWorksheet('key'), pag, ctx, testInfo, ifmgr, 11, 11, vars)
+                test('timeout  -- 007-assert', async({}, testInfo)=>{
+                  await runSheetEachTest(wb.getWorksheet('timeout'), pag, ctx, testInfo, ifmgr, 7, 7, vars)
                 })
                             
                 

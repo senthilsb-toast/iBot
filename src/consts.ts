@@ -38,6 +38,8 @@ export const SMTP_PASSWORD=process.env.SMTP_PASSWORD ?? ""
 export const SMTP_SENDER=process.env.SMTP_SENDER ?? "noreply@mtsin.com"
 export const SMTP_TO=process.env.SMTP_TO ?? "senthil.sb@mtsin.com"
 
+export const TESTCASEGENERATEDFILE=process.env.TESTCASEGENERATEDFILE
+
 export const API_TOKEN=process.env.API_TOKEN ?? ""
 
 

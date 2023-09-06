@@ -15,5 +15,6 @@ const config: PlaywrightTestConfig = {
      //screenshot: 'on',
      //trace: 'on',
    },
+   reporter: [['html', { open: 'always' }]],
 }
 export default config;

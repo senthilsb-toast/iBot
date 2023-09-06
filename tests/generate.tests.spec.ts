@@ -5,9 +5,9 @@ import { runSheet, getTestCases } from '../src/actions'
 import {
   ACTION, ACTION_FORMAT, COMMENT_FORMAT,
   DATA, FILE, humanNowDateTime, LOCATOR, PRINT_FORMAT,
-  SHEET, TRACE, TRACE_FORMAT,
+  SHEET, TRACE, TRACE_FORMAT,TESTCASEGENERATEDFILE
 } from '../src/consts'
-import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER, syncReadFile,syncWriteFile } from '../src/lib'
+import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER, syncReadFile, syncWriteFile } from '../src/lib'
 
 //global page and context
 let page: Page;
@@ -90,9 +90,9 @@ test.describe('iBot Tests',()=>{
                 \n`)
                 }              
     })
-    const templatefile = syncReadFile('./tests/testcase.template.spec.ts') 
+    const templatefile = syncReadFile('../tests/testcase.template.spec.ts') 
     let generatedtestfile = templatefile.replace('/*{{code}}*/',codeSheet)
-    syncWriteFile('./runeachtest.spec.ts',generatedtestfile)
+    syncWriteFile( `../testcasegeneratedfile/${TESTCASEGENERATEDFILE}`,generatedtestfile)
     await page.waitForTimeout(2 * 1000);
     logAll('runeachtest.spec.ts file generated')
   })

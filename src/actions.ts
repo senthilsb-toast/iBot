@@ -87,7 +87,7 @@ export async function runSheet(
       const event = parts1.length > 1 ? parts1[1].trim().toLowerCase() : null;
       // if (event) logAll('found event!', event)
 
-      // Comma seperator in action for Timeout in seconds
+      // Comma separator in action for Timeout in seconds
       const parts: string[] = main_a.split(",");
       const a = parts[0].trim().toLowerCase();
       let tos = {};
@@ -122,7 +122,10 @@ export async function runSheet(
           case "attrib:href:exact":
             await expect(loc).toHaveAttribute("href", d, tos);
             break;
-          case "assert": await expect(loc).toHaveText(rexss(d), tos); break;
+          case "assert": 
+          await expect(loc).toBeVisible();// check for if
+          await expect(loc).toHaveCount(1, tos);// check for ifs   
+          await expect(loc).toHaveText(rexss(d), tos); break;
           case "assert:value":
             await expect(loc).toHaveValue(rexss(d), tos);
             break;

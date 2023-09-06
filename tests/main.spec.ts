@@ -11,50 +11,76 @@ import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIM
 test('check all', async ({ page, context }) => {
 // console.log(context.br)
 
-  TOTAL_TIMER.start()
-  logAll('NOW:', humanNowDateTime())
-  logAll('FILE:', FILE)
-  logAll('SHEET:', SHEET)
+const { spawn } = require('node:child_process')
 
-  logAll('LOCATOR:', LOCATOR)
-  logAll('ACTION:', ACTION)
-  logAll('DATA:', DATA)
-  logAll('ACTION_FORMAT:', ACTION_FORMAT)
-  logAll('PRINT_FORMAT:', PRINT_FORMAT)
-  logAll('COMMENT_FORMAT:', COMMENT_FORMAT)
+// // start the `ping google.com` command
+// const command1 = spawn('ping', ["google.com"])
 
-  logAll('TRACE_FORMAT:', TRACE_FORMAT)
-  logAll('DEBUG_TRACE:', TRACE)
+// // the `data` event is fired every time data is
+// // output from the command
+// command1.stdout.on('data', output => {
+//     // the output data is captured and printed in the callback
+//     console.log("Output: ", output.toString())
+// })
 
-  const wb = new Workbook()
-  await wb.xlsx.readFile(FILE!)
-  logAll('sheets: ', wb.worksheets.length)
-  //if (TRACE) logAll(wb.worksheets.map(w => w.name))
-  //Worksheet name and index
-  wb.eachSheet((worksheet, sheetId) => {
-    logAll(sheetId, worksheet.name);
-  })
 
-  const sheets = parseInts(SHEET, wb)
-  logAll(sheets)
 
-  for (const sn of sheets) {
-    const sheet = wb.getWorksheet(sn) //ISSUE! sometimes.
-    logAll()
-    logAll('Running sheet:', sn, sheet.name, `- ${sheet.rowCount} row(s)`)
-    logAll('---- ---- ---- ----')
-    SHEET_TIMER.start()
-    await runSheet(sheet, page, context)
-    logSheetClose()
-    logAll()
-  }
 
-  logAll()
-  logAll('----')
-  logAll('TOTAL TIME:', TOTAL_TIMER.end())
-  logAll('TOTAL ACTIONS:', TOTAL_SUMMARY.actions)
-  logAll('---------- xxxx ----------')
-  logAll()
+// start the `ping google.com` command
+const command2 = spawn('sh ../testrun.sh')
+
+// the `data` event is fired every time data is
+// output from the command
+command2.stdout.on('data', output => {
+    // the output data is captured and printed in the callback
+    console.log("Output: ", output.toString())
+})
+
+
+  // TOTAL_TIMER.start()
+  // logAll('NOW:', humanNowDateTime())
+  // logAll('FILE:', FILE)
+  // logAll('SHEET:', SHEET)
+
+  // logAll('LOCATOR:', LOCATOR)
+  // logAll('ACTION:', ACTION)
+  // logAll('DATA:', DATA)
+  // logAll('ACTION_FORMAT:', ACTION_FORMAT)
+  // logAll('PRINT_FORMAT:', PRINT_FORMAT)
+  // logAll('COMMENT_FORMAT:', COMMENT_FORMAT)
+
+  // logAll('TRACE_FORMAT:', TRACE_FORMAT)
+  // logAll('DEBUG_TRACE:', TRACE)
+
+  // const wb = new Workbook()
+  // await wb.xlsx.readFile(FILE!)
+  // logAll('sheets: ', wb.worksheets.length)
+  // //if (TRACE) logAll(wb.worksheets.map(w => w.name))
+  // //Worksheet name and index
+  // wb.eachSheet((worksheet, sheetId) => {
+  //   logAll(sheetId, worksheet.name);
+  // })
+
+  // const sheets = parseInts(SHEET, wb)
+  // logAll(sheets)
+
+  // for (const sn of sheets) {
+  //   const sheet = wb.getWorksheet(sn) //ISSUE! sometimes.
+  //   logAll()
+  //   logAll('Running sheet:', sn, sheet.name, `- ${sheet.rowCount} row(s)`)
+  //   logAll('---- ---- ---- ----')
+  //   SHEET_TIMER.start()
+  //   await runSheet(sheet, page, context)
+  //   logSheetClose()
+  //   logAll()
+  // }
+
+  // logAll()
+  // logAll('----')
+  // logAll('TOTAL TIME:', TOTAL_TIMER.end())
+  // logAll('TOTAL ACTIONS:', TOTAL_SUMMARY.actions)
+  // logAll('---------- xxxx ----------')
+  // logAll()
 
 })
 
