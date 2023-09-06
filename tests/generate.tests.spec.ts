@@ -1,13 +1,13 @@
 import { BrowserContext, Page, test, TestInfo } from '@playwright/test'
 import { Workbook } from 'exceljs'
 import { log } from 'handlebars/runtime'
-import { runSheet, getTestCases } from '../actions'
+import { runSheet, getTestCases } from '../src/actions'
 import {
   ACTION, ACTION_FORMAT, COMMENT_FORMAT,
   DATA, FILE, humanNowDateTime, LOCATOR, PRINT_FORMAT,
   SHEET, TRACE, TRACE_FORMAT,
-} from '../consts'
-import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER, syncReadFile,syncWriteFile } from '../lib'
+} from '../src/consts'
+import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER, syncReadFile,syncWriteFile } from '../src/lib'
 
 //global page and context
 let page: Page;
