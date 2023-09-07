@@ -1,0 +1,1 @@
+- 10 assert:exact - Basic Auth (user and pass: admin)  = 0.003
