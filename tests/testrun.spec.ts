@@ -22,7 +22,7 @@ test('Generate Run Tests Script File', async () => {
     const baseURL = rawLine[2].split('=')[1]
     const userName = rawLine[3].split('=')[1]
     const pass = rawLine[4].split('=')[1]
-    const cmdGenerateTestCases = `FILE=${fileName} SHEET=${sheetNumber} BASEURL=${baseURL} USERID=${userName} PASSWORD=${pass} TESTCASEGENERATEDFILE=../testcasegeneratedfile/${Path.parse(`${fileName}`).name}-${sheetNumber}-${baseURL.split('.').join('')}-${userName}.spec.ts npx playwright test ./tests/generate.tests.spec.ts`
+    const cmdGenerateTestCases = `FILE=${fileName} SHEET=${sheetNumber} BASEURL=${baseURL} USERID=${userName} PASSWORD=${pass} TESTCASEGENERATEDFILE=../testcasegeneratedfile/${Path.parse(`${fileName}`).name}-${sheetNumber}-${baseURL.replaceAll('.', '',)}-${userName}.spec.ts npx playwright test ./tests/generate.tests.spec.ts`
     const cmdRunTestCases = `USER=${userName} PASS=${pass} SHEET=${sheetNumber} FILE=${fileName} npx playwright test ../testcasegeneratedfile/${Path.parse(`${fileName}`).name}-${sheetNumber}-${baseURL.split('.').join('')}-${userName}.spec.ts`
     const macShellScript = `osascript -e 'tell app "Terminal" do script "${cmdGenerateTestCases}" && "${cmdRunTestCases}" end tell'`
     shellString += macShellScript + '\n'

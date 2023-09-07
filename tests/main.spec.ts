@@ -35,15 +35,15 @@ test('check all', async ({ page, context }) => {
 
 
 
-  // // start the `ping google.com` command
-  // const command2 = spawn('sh ../testrun.sh')
+  // start the `ping google.com` command
+  const command2 = spawn('sh ../testrun.sh')
 
-  // // the `data` event is fired every time data is
-  // // output from the command
-  // command2.stdout.on('data', output => {
-  //     // the output data is captured and printed in the callback
-  //     console.log("Output: ", output.toString())
-  // })
+  // the `data` event is fired every time data is
+  // output from the command
+  command2.stdout.on('data', output => {
+      // the output data is captured and printed in the callback
+      console.log("Output: ", output.toString())
+  })
 
 
   TOTAL_TIMER.start()
