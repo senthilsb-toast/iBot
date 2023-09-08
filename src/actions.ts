@@ -25,7 +25,8 @@ import { ACTION, DATA, LOCATOR, MAX_EMPTIES, TRACE } from "./consts";
 export async function runSheet(
   sheet: Worksheet,
   page: Page,
-  context: BrowserContext
+  context: BrowserContext,
+  testInfo: TestInfo
 ) {
   let empties = 0;
 
@@ -130,7 +131,7 @@ export async function runSheet(
             break;
           case "assert":
             await expect(loc).toBeVisible();// check for if
-            await expect(loc).toHaveCount(1, tos);// check for ifs   
+            await expect(loc).toHaveCount(1, tos);// check for if   
             await expect(loc).toHaveText(rexss(d), tos); break;
           case "assert:value":
             await expect(loc).toHaveValue(rexss(d), tos);
@@ -366,7 +367,7 @@ export async function runSheetEachTest(
             break;
           case "assert":
             await expect(loc).toBeVisible();// check for if
-            await expect(loc).toHaveCount(1, tos);// check for ifs   
+            await expect(loc).toHaveCount(1, tos);// check for if  
             await expect(loc).toHaveText(rexss(d), tos); break;
           case "assert:value":
             await expect(loc).toHaveValue(rexss(d), tos);

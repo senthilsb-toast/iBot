@@ -3,4 +3,6 @@ _
 allure-report*/*
 allure-results*/*
 testcasegeneratedfile/*
-
+/test-results/
+/playwright-report/
+/playwright/.cache/

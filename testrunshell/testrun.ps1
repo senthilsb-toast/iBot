@@ -1,0 +1,2 @@
+$env:FILE="sample-tests.xlsx"; $env:SHEET=2,15; $env:BASEURL="https://demoqa.com/text-box"; $env:USERID="abc"; $env:PASSWORD="abcd"; npx playwright test ./tests/main.spec.ts
+#start powershell{ $env:FILE="sample-tests.xlsx"; $env:SHEET=2,15; $env:BASEURL="https://demoqa.com/text-box"; $env:USERID="abc"; $env:PASSWORD="abcd"; npx playwright test ./tests/main.spec.ts --headed }

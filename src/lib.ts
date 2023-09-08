@@ -197,8 +197,6 @@ export function locate(ctx: Page | FrameLocator, input: string): Locator {
   return loc
 }
 
-<<<<<<< Updated upstream:lib.ts
-=======
 export function template(strings: TemplateStringsArray, ... expr: string[]) {
   let str = '';
   strings.forEach((string, i) => {
@@ -207,7 +205,6 @@ export function template(strings: TemplateStringsArray, ... expr: string[]) {
   return str;
 }
 
->>>>>>> Stashed changes:src/lib.ts
 // -----------------------------------------------------------------------------
 
 // standalone test: 'ts-node lib.ts' 

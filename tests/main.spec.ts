@@ -8,7 +8,7 @@ import {
 } from '../src/consts'
 import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER } from '../src/lib'
 
-test('check all', async ({ page, context }) => {
+test('check all', async ({ page, context }, TestInfo) => {
   // console.log(context.br)
 
   TOTAL_TIMER.start()
@@ -35,15 +35,15 @@ test('check all', async ({ page, context }) => {
 
 
 
-  // start the `ping google.com` command
-  const command2 = spawn('sh ../testrun.sh')
+  // // start the `ping google.com` command
+  // const command2 = spawn('sh ../testrun.sh')
 
-  // the `data` event is fired every time data is
-  // output from the command
-  command2.stdout.on('data', output => {
-      // the output data is captured and printed in the callback
-      console.log("Output: ", output.toString())
-  })
+  // // the `data` event is fired every time data is
+  // // output from the command
+  // command2.stdout.on('data', output => {
+  //     // the output data is captured and printed in the callback
+  //     console.log("Output: ", output.toString())
+  // })
 
 
   TOTAL_TIMER.start()
@@ -79,7 +79,7 @@ test('check all', async ({ page, context }) => {
     logAll('Running sheet:', sn, sheet.name, `- ${sheet.rowCount} row(s)`)
     logAll('---- ---- ---- ----')
     SHEET_TIMER.start()
-    await runSheet(sheet, page, context)
+    await runSheet(sheet, page, context, TestInfo)
     logSheetClose()
     logAll()
   }
