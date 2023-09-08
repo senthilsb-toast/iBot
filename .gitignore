@@ -1,6 +1,6 @@
 node_modules/
 _
-./allure-report*
-./allure-results*
-./testcasegeneratedfile/
+allure-report*/*
+allure-results*/*
+testcasegeneratedfile/*
 
