@@ -1,9 +1,6 @@
 node_modules/
-allure*/
-test-results/
-output.log
-_
-.DS_Store
 /test-results/
 /playwright-report/
 /playwright/.cache/
+/repors/
+/tests-generatedfile/
