@@ -31,6 +31,22 @@ export const LOCATOR = +(process.env.LOCATOR ?? 3)
 export const ACTION = +(process.env.ACTION ?? 4)
 export const DATA = +(process.env.DATA ?? 5)
 
+export const SMTP_HOST = process.env.SMTP_HOST ?? "smtp.gmail.com"
+export const SMTP_PORT = process.env.SMTP_PORT ?? 587
+export const SMTP_USERNAME = process.env.SMTP_USERNAME ?? "noreply@mtsin.com"
+export const SMTP_PASSWORD = process.env.SMTP_PASSWORD ?? ""
+export const SMTP_SENDER = process.env.SMTP_SENDER ?? "noreply@mtsin.com"
+export const SMTP_TO = process.env.SMTP_TO ?? "senthil.sb@mtsin.com"
+
+export let BASEURL = process.env.BASEURL
+export let USERID = process.env.USERID
+export let PASSWORD = process.env.PASSWORD
+
+
+export const TESTCASEGENERATEDFILE = process.env.TESTCASEGENERATEDFILE ?? "filenameNOTFOUND"
+
+
+
 export const OUTPUT_LOG = 'output.log'
 fs.writeFileSync(OUTPUT_LOG, '', { encoding: "utf8", flag: "w" })
 // recreate once, when started.
@@ -47,7 +63,7 @@ export function envget(key: string, valifnull: string = ""): string {
 
 // -----------------------------------------------------------------------------
 
-// standalone test: 'ts-node consts.ts' 
+// standalone test: 'ts-node consts.ts'
 
 // -----------------------------------------------------------------------------
 
