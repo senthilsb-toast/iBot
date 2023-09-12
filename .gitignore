@@ -5,3 +5,4 @@ _
 /playwright/.cache/
 #/tests-generatedfiles/**
 output.log
+output.log
