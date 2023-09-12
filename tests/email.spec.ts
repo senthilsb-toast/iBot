@@ -4,7 +4,7 @@ import Mail from "nodemailer/lib/mailer";
 import {
   ACTION, ACTION_FORMAT, COMMENT_FORMAT,
   DATA, FILE, humanNowDateTime, LOCATOR, PRINT_FORMAT,
-  SHEET, TRACE, TRACE_FORMAT, SMTP_HOST, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD, SMTP_SENDER, SMTP_TO
+  SHEET, TRACE, TRACE_FORMAT, SMTP_HOST, SMTP_PORT, SMTP_USERNAME, SMTP_PASSWORD, SMTP_SENDER, SMTP_TO, TESTCASEGENERATEDFILE
 } from '../src/consts'
 import { logAll, logSheetClose, parseInts, SHEET_TIMER, TOTAL_SUMMARY, TOTAL_TIMER } from '../src/lib'
 
@@ -45,8 +45,9 @@ test.describe('iBot Tests Send Email', () => {
       html: "<b>Test Case Result Report!</b>",
       attachments: [
         {
-          filename: 'complete.html',
-          path: './allure-combine/complete.html'
+
+          filename: 'index.html',
+          path: `./reports/${TESTCASEGENERATEDFILE}/index.html`
         },
       ]
     }).then(info => {

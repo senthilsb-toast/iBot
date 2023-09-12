@@ -25,12 +25,18 @@ $env:TESTCASEGENERATEDFILE = $tmpfile;
 Write-Host "TESTCASEGENERATEDFILE: $tmpfile";
 npx playwright test ./tests/generate.tests.spec.ts --reporter='null';
 if ($report -eq 'report' ) {
+    #npx playwright test ./tests-generatedfiles/$tmpfile --reporter=html --headed; 
     npx playwright test ./tests-generatedfiles/$tmpfile --reporter=html; 
-}else {
-    npx playwright test ./tests-generatedfiles/$tmpfile; 
+}
+else {
+    #npx playwright test ./tests-generatedfiles/$tmpfile --reporter='null' --headed; 
+    npx playwright test ./tests-generatedfiles/$tmpfile --reporter='null'; 
 }
 if ($email -eq 'email' ) {
-   Write-Host "emailing........................."
+    Write-Host "emailing........................."
+    npx playwright test ./tests/email.spec.ts
 }
+
+#Read-Host
 
 #.\shell\testrun.ps1 -testfile "./testcasefiles/sample-tests.xlsx" -sheet "2,15" -baseurl "https://demoqa.com/text-box" -userid "abcc" -password "abcdd"
