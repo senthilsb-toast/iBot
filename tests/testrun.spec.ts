@@ -35,7 +35,10 @@ test('Generate Run Tests Script File', async () => {
   cmdGenerateTestCases.push('#Start-Process powershell.exe -WindowStyle Hidden -ArgumentList $args' + '\n')
   for (var line in lines) {
     logAll('File Line :', lines[line])
-    logAll()
+    if (lines[line][0] == '#') {
+      logAll(`Line Skipped:${line}`)
+      continue;
+    }
     const rawLine: string[] = lines[line].split(';')
     const fileName = rawLine[0]
     const sheetNumber = rawLine[1]
@@ -44,9 +47,9 @@ test('Generate Run Tests Script File', async () => {
     const password = rawLine[4] ?? ''
     const report = rawLine[5] ?? ''
     const email = rawLine[6] ?? ''
-    let shellString = `$testargs = '-file .\\shell\\testrun.ps1 -testfile ${fileName} -sheet ${sheetNumber} -baseurl ${baseURL} -userid ${userId} -password ${password} -report "${report}" -email "${email}"'` 
+    const shellString = `$testargs = '-file .\\shell\\testrun.ps1 -testfile ${fileName} -sheet ${sheetNumber} -baseurl ${baseURL} -userid ${userId} -password ${password} -report "${report}" -email "${email}"'`
     cmdGenerateTestCases.push(shellString)
-    cmdGenerateTestCases.push('Start-Process powershell.exe -ArgumentList $testargs')    
+    cmdGenerateTestCases.push('Start-Process powershell.exe -ArgumentList $testargs')
   }
 
   const shellfile = '../shell/run-parallel-generated.ps1'

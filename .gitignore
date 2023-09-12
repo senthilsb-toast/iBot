@@ -4,5 +4,8 @@ _
 /playwright-report/
 /playwright/.cache/
 #/tests-generatedfiles/**
+testcasefiles/~$*
 output.log
-output.log
+*.log
+*.html
+shell/run-parallel-generated.ps1

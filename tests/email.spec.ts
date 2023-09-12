@@ -47,7 +47,7 @@ test.describe('iBot Tests Send Email', () => {
         {
 
           filename: 'index.html',
-          path: `./reports/${TESTCASEGENERATEDFILE}/index.html`
+          path: `./reports/${TESTCASEGENERATEDFILE.replace(/['.]+/g, '-')}/index.html`
         },
       ]
     }).then(info => {
