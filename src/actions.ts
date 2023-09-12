@@ -25,7 +25,8 @@ import { ACTION, DATA, LOCATOR, MAX_EMPTIES, TRACE } from "./consts";
 export async function runSheet(
   sheet: Worksheet,
   page: Page,
-  context: BrowserContext
+  context: BrowserContext,
+  testInfo: TestInfo
 ) {
   let empties = 0;
 
@@ -80,7 +81,7 @@ export async function runSheet(
       // if (soft.length > 1) {
       //   const customExpect = soft[1].trim().toLowerCase() == 'soft' ? expect.configure({ soft: true }) : expect;
       // }
-      
+
       // Note down NEGATIVE events, or events!
       const parts1: string[] = raw_a.split("?");
       const main_a = parts1[0].trim().toLowerCase();
@@ -109,7 +110,14 @@ export async function runSheet(
 
       try {
         switch (a) {
-          case "url": await page.goto(l); break;
+          case "url":
+            if (d) {
+              await page.goto(d);//if d is NOT empty use process env URL
+            }
+            else {
+              await page.goto(l); 
+            }
+            break;
           case "title":
             await expect(ctx as Page).toHaveTitle(rexss(d), tos);
             break;
@@ -122,10 +130,10 @@ export async function runSheet(
           case "attrib:href:exact":
             await expect(loc).toHaveAttribute("href", d, tos);
             break;
-          case "assert": 
-          await expect(loc).toBeVisible();// check for if
-          await expect(loc).toHaveCount(1, tos);// check for ifs   
-          await expect(loc).toHaveText(rexss(d), tos); break;
+          case "assert":
+            await expect(loc).toBeVisible();// check for if
+            await expect(loc).toHaveCount(1, tos);// check for if   
+            await expect(loc).toHaveText(rexss(d), tos); break;
           case "assert:value":
             await expect(loc).toHaveValue(rexss(d), tos);
             break;
@@ -339,7 +347,14 @@ export async function runSheetEachTest(
 
       try {
         switch (a) {
-          case "url": await page.goto(l); break;
+          case "url":
+            if (d) {
+              await page.goto(d);//if d is NOT empty use process env URL
+            }
+            else {
+              await page.goto(l); 
+            }
+            break;
           case "title":
             await expect(ctx as Page).toHaveTitle(rexss(d), tos);
             break;
@@ -354,7 +369,7 @@ export async function runSheetEachTest(
             break;
           case "assert":
             await expect(loc).toBeVisible();// check for if
-            await expect(loc).toHaveCount(1, tos);// check for ifs   
+            await expect(loc).toHaveCount(1, tos);// check for if  
             await expect(loc).toHaveText(rexss(d), tos); break;
           case "assert:value":
             await expect(loc).toHaveValue(rexss(d), tos);
@@ -527,6 +542,7 @@ export function getTestCases(
 
       const raw_d = data.value ? data.value.toString() : "";
       const d = replaceVars(raw_d, vars);
+
 
       const raw_a = action.value.toString();
 

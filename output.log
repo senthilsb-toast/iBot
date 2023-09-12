@@ -1,0 +1,36 @@
+
+Running sheet: key - 11 row(s)
+---- ---- ---- ----
+Sheet time:  = 0.002
+
+
+Running sheet: var_set - 14 row(s)
+---- ---- ---- ----
+Sheet time:  = 0.000
+
+Before iBot Tests...
+NOW: Tuesday, September 12, 2023 1:20 PM
+FILE: ./testcasefiles/sample-tests.xlsx
+SHEET: 2,15
+BASEURL: https://demoqa.com/text-box
+USERID: abcc
+PASSWORD: abcdd
+LOCATOR: 3
+ACTION: 4
+DATA: 5
+ACTION_FORMAT: 
+PRINT_FORMAT: 
+COMMENT_FORMAT: {{1}} {{2}}
+TRACE_FORMAT: {{4}} - {{5}}   .   {{6}}
+DEBUG_TRACE: false
+
+
+
+ try 2 - from .env  = 0.000
+
+After iBot Tests...
+----
+TOTAL TIME:  = 8.201
+TOTAL ACTIONS: 17
+---------- xxxx ----------
+

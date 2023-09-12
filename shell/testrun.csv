@@ -1,0 +1,2 @@
+$env:FILE="sample-tests.xlsx";$env:SHEET="1,2";$env:BASEURL="aaa";$env:USERID="bbbb";$env:PASSWORD="ccccs";
+$env:FILE="sample-tests.xlsx";$env:SHEET="2,15";$env:BASEURL="https://demoqa.com/text-box";$env:USERID="abc";$env:PASSWORD="abcd";

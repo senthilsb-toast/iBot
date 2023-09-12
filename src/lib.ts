@@ -184,7 +184,7 @@ function getvar(vr: string, vars: { [vid: string]: string }) {
 export function replaceVars(input: string, vars: { [vid: string]: string }) {
   const rx = /{{\s*([\w\.]+)\s*}}/g // mustache model {{var}}
   const out = input.replace(rx, (m, c) => getvar(c, vars))
-  if (TRACE && input != out) console.log("-->", input, out)
+  if (TRACE && input != out) console.log("Replace Vars -->", input, out)
   return out
 }
 

@@ -1,6 +1,6 @@
 node_modules/
+_
 /test-results/
 /playwright-report/
 /playwright/.cache/
-/repors/
-/tests-generatedfile/
+#/tests-generatedfiles/**

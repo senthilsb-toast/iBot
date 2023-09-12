@@ -38,11 +38,10 @@ export const SMTP_PASSWORD=process.env.SMTP_PASSWORD ?? ""
 export const SMTP_SENDER=process.env.SMTP_SENDER ?? "noreply@mtsin.com"
 export const SMTP_TO=process.env.SMTP_TO ?? "senthil.sb@mtsin.com"
 
-export const TESTCASEGENERATEDFILE=process.env.TESTCASEGENERATEDFILE
-
-export const API_TOKEN=process.env.API_TOKEN ?? ""
-
-
+export const TESTCASEGENERATEDFILE=process.env.TESTCASEGENERATEDFILE ?? "filenameNOTFOUND"
+export const BASEURL=process.env.BASEURL ?? ""
+export const USERID=process.env.USERID ?? ""
+export const PASSWORD=process.env.PASSWORD ?? ""
 
 export const OUTPUT_LOG = 'output.log'
 fs.writeFileSync(OUTPUT_LOG, '', { encoding: "utf8", flag: "w" })

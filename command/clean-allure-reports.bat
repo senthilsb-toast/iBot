@@ -1,1 +1,0 @@
-for /D %%i in (.\allure-report*) do RD /S /Q "%%i"
