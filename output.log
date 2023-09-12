@@ -1,20 +1,30 @@
 
-Running sheet: key - 11 row(s)
----- ---- ---- ----
-Sheet time:  = 0.002
-
-
 Running sheet: var_set - 14 row(s)
 ---- ---- ---- ----
-Sheet time:  = 0.000
+Sheet time:  = 0.004
 
 Before iBot Tests...
-NOW: Tuesday, September 12, 2023 1:20 PM
+NOW: Tuesday, September 12, 2023 4:04 PM
 FILE: ./testcasefiles/sample-tests.xlsx
-SHEET: 2,15
-BASEURL: https://demoqa.com/text-box
-USERID: abcc
-PASSWORD: abcdd
+SHEET: 2
+BASEURL: https://the-internet.herokuapp.com/
+USERID: abc
+PASSWORD: abcd
+LOCATOR: 3
+ACTION: 4
+Before iBot Tests...
+DATA: 5
+ACTION_FORMAT: 
+PRINT_FORMAT: 
+COMMENT_FORMAT: {{1}} {{2}}
+TRACE_FORMAT: {{4}} - {{5}}   .   {{6}}
+DEBUG_TRACE: false
+NOW: Tuesday, September 12, 2023 4:04 PM
+FILE: ./testcasefiles/sample-tests.xlsx
+SHEET: 15
+BASEURL: https://letcode.in/windows
+USERID: bbbb
+PASSWORD: ccccs
 LOCATOR: 3
 ACTION: 4
 DATA: 5
@@ -30,7 +40,143 @@ DEBUG_TRACE: false
 
 After iBot Tests...
 ----
-TOTAL TIME:  = 8.201
-TOTAL ACTIONS: 17
+TOTAL TIME:  = 3.107
+TOTAL ACTIONS: 9
 ---------- xxxx ----------
 
+After iBot Tests...
+----
+TOTAL TIME:  = 35.349
+TOTAL ACTIONS: 4
+---------- xxxx ----------
+
+8 ERROR:  locator.press: Page closed
+=========================== logs ===========================
+waiting for locator('input#target')
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+  locator resolved to <input id="target" type="text"/>
+elementHandle.press("abc")
+============================================================

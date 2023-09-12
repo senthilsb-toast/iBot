@@ -1,2 +1,3 @@
-$env:FILE="sample-tests.xlsx";$env:SHEET="1,2";$env:BASEURL="aaa";$env:USERID="bbbb";$env:PASSWORD="ccccs";
-$env:FILE="sample-tests.xlsx";$env:SHEET="2,15";$env:BASEURL="https://demoqa.com/text-box";$env:USERID="abc";$env:PASSWORD="abcd";
+testcasefile;sheet;baseurl;userid;password;report;email
+"./testcasefiles/sample-tests.xlsx";"15";"https://letcode.in/windows";"bbbb";"ccccs";report;email;
+"./testcasefiles/sample-tests.xlsx";"2";"https://the-internet.herokuapp.com/";"abc";"abcd";

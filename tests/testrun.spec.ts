@@ -5,51 +5,54 @@ import {
   SHEET, TRACE, TRACE_FORMAT,
 } from '../src/consts'
 import { logAll, syncReadFile, syncWriteFile, TOTAL_TIMER } from '../src/lib'
-import Path from 'path'
-//var nrc = require('node-run-cmd');
-//const Shell = require('node-powershell').Shell;
-//var cmd = require('node-command-line')
-//const execShPromise = require("exec-sh").promise;
-//const {spawn} = require("child_process");
-//const PowerShell = require("powershell");
-//const Shell = require("node-powershell");
-import { PowerShell } from 'node-powershell';
+
+const psTemplate: string = `Write-Host "Setting environment variables...";
+Write-Host "Excel FILE: $testfile";
+$env:FILE=$testfile;
+Write-Host "Excel SHEET: $sheet";
+$env:SHEET=$sheet;
+Write-Host "BASEURL: $baseurl";
+$env:BASEURL=$baseurl;
+Write-Host "USERID: $userid";
+$env:USERID=$userid;
+Write-Host "PASSWORD: $password";
+$env:PASSWORD=$password; 
+$tmpfile = Split-Path -Path $testfile -Leaf
+$tmpfile = $tmpfile.replace('.','-')+"-"+$sheet.replace(',','-')+"-"+$userid+".spec.ts";
+$env:TESTCASEGENERATEDFILE=$tmpfile; 
+Write-Host "TESTCASEGENERATEDFILE: $tmpfile";
+npx playwright test ./tests/generate.tests.spec.ts --reporter='null';
+npx playwright test ./tests-generatedfiles/$tmpfile; `
 
 test('Generate Run Tests Script File', async () => {
-  
+
   TOTAL_TIMER.start()
   logAll('NOW:', humanNowDateTime())
 
-  const lines: string[] = syncReadFile('../testrunshell/testrun.csv').toString().split("\n");
-  let shellString = ''
+  const lines: string[] = syncReadFile('../shell/testrun.csv').toString().split("\n");
+  lines.shift()//skip header
   const cmdGenerateTestCases: string[] = [];
+  cmdGenerateTestCases.push('#Start-Process powershell.exe -WindowStyle Hidden -ArgumentList $args' + '\n')
   for (var line in lines) {
     logAll('File Line :', lines[line])
     logAll()
     const rawLine: string[] = lines[line].split(';')
-    const fileName = rawLine[0].split('=')[1].replace(/['.]+/g, '-')
-    const sheetNumber = rawLine[1].split('=')[1].replace(/[',]+/g, '-')
-    //const baseURL = rawLine[2].split('=')[1]
-    const userName = rawLine[3].split('=')[1]
-    const generatefilename = `${fileName}-${sheetNumber}-${userName}.spec.ts`.replace(/['"]+/g, '')
-    cmdGenerateTestCases.push(`${lines[line]} $env:TESTCASEGENERATEDFILE="${generatefilename}"; npx playwright test ./tests/generate.tests.spec.ts`)
-    //const cmdRunTestCases = `USER=${userName} PASS=${pass} SHEET=${sheetNumber} FILE=${fileName} npx playwright test ../testcasegeneratedfile/${Path.parse(`${fileName}`).name}-${sheetNumber}-${baseURL.split('.').join('')}-${userName}.spec.ts`
-    //const macShellScript = `osascript -e 'tell app "Terminal" do script "${cmdGenerateTestCases}" && "${cmdRunTestCases}" end tell'`
-    //shellString += macShellScript + '\n'
-    //logAll('Cmd Generate Test Cases :', cmdGenerateTestCases)
-    //logAll();
-    //logAll('Cmd Run Test Cases :', cmdRunTestCases)
+    const fileName = rawLine[0]
+    const sheetNumber = rawLine[1]
+    const baseURL = rawLine[2] ?? ''
+    const userId = rawLine[3] ?? ''
+    const password = rawLine[4] ?? ''
+    const report = rawLine[5] ?? ''
+    const email = rawLine[6] ?? ''
+    let shellString = `$testargs = '-file .\\shell\\testrun.ps1 -testfile ${fileName} -sheet ${sheetNumber} -baseurl ${baseURL} -userid ${userId} -password ${password} -report "${report}" -email "${email}"'` 
+    cmdGenerateTestCases.push(shellString)
+    cmdGenerateTestCases.push('Start-Process powershell.exe -ArgumentList $testargs')    
   }
 
-  
-  
-  PowerShell.$`echo "hello from PowerShell"`;
-
-
-  // const shellfile = '../testrunshell/testrun.sh'
-  // logAll('writing to file...', shellfile)
-  // syncWriteFile(shellfile, shellString)
-  // logAll('file created...', shellfile)
+  const shellfile = '../shell/run-parallel-generated.ps1'
+  logAll('Writing to file...', shellfile)
+  syncWriteFile(shellfile, cmdGenerateTestCases.join('\r\n'))
+  logAll('file created...', shellfile)
 
   logAll()
   logAll('----')
