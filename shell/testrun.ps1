@@ -36,6 +36,6 @@ if (($report -eq 'report') -and ($email -eq 'email')){
 }
 
 
-Read-Host
+#Read-Host
 
 #.\shell\testrun.ps1 -testfile "./testcasefiles/sample-tests.xlsx" -sheet "2,15" -baseurl "https://demoqa.com/text-box" -userid "abcc" -password "abcdd"
