@@ -5,6 +5,7 @@ import {
   SHEET, TRACE, TRACE_FORMAT,
 } from '../src/consts'
 import { logAll, syncReadFile, syncWriteFile, TOTAL_TIMER } from '../src/lib'
+const isWin = process.platform === "win32";
 
 const psTemplate: string = `Write-Host "Setting environment variables...";
 Write-Host "Excel FILE: $testfile";
@@ -47,12 +48,22 @@ test('Generate Run Tests Script File', async () => {
     const password = rawLine[4] ?? ''
     const report = rawLine[5] ?? ''
     const email = rawLine[6] ?? ''
-    const shellString = `$testargs = '-file .\\shell\\testrun.ps1 -testfile ${fileName} -sheet ${sheetNumber} -baseurl ${baseURL} -userid ${userId} -password ${password} -report "${report}" -email "${email}"'`
-    cmdGenerateTestCases.push(shellString)
-    cmdGenerateTestCases.push('Start-Process powershell.exe -ArgumentList $testargs')
+    if (isWin) {
+      const shellString = `$testargs = '-file .\\shell\\testrun.ps1 -testfile ${fileName} -sheet ${sheetNumber} -baseurl ${baseURL} -userid ${userId} -password ${password} -report "${report}" -email "${email}"'`
+      cmdGenerateTestCases.push(shellString)
+      cmdGenerateTestCases.push('Start-Process powershell.exe -ArgumentList $testargs')
+    }else{
+      const shellString = `./shell/testrun.sh ${fileName} ${sheetNumber} ${baseURL} ${userId} ${password} ${report} ${email}`
+      cmdGenerateTestCases.push(shellString)      
+    }
   }
 
-  const shellfile = '../shell/run-parallel-generated.ps1'
+  if (isWin) {
+    const shellfile = '../shell/run-parallel-generated.ps1'
+  }else{
+    const shellfile = '../shell/run-parallel-generated.sh'
+  }
+
   logAll('Writing to file...', shellfile)
   syncWriteFile(shellfile, cmdGenerateTestCases.join('\r\n'))
   logAll('file created...', shellfile)
