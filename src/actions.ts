@@ -141,6 +141,8 @@ export async function runSheet(
             await expect(loc).toHaveValue(d, tos);
             break;
           case "assert:exact": await expect(loc).toHaveText(d, tos); break;
+          case "assert:checked": await expect(loc).toBeChecked(tos); break;
+          case "assert:!checked": await expect(loc).not.toBeChecked(tos); break;
           case "exists": await expect(loc).not.toHaveCount(0, tos); break;
           case "exists:not": await expect(loc).toHaveCount(0, tos); break;
           case "keys": await loc.fill(d, tos); break;
@@ -378,12 +380,15 @@ export async function runSheetEachTest(
             await expect(loc).toHaveValue(d, tos);
             break;
           case "assert:exact": await expect(loc).toHaveText(d, tos); break;
+          case "assert:checked": await expect(loc).toBeChecked(tos); break;
+          case "assert:!checked": await expect(loc).not.toBeChecked(tos); break;
           case "exists": await expect(loc).not.toHaveCount(0, tos); break;
           case "exists:not": await expect(loc).toHaveCount(0, tos); break;
           case "keys": await loc.fill(d, tos); break;
           case 'dnd': await page.dragAndDrop(l, d, tos); break
           //TBD: Is it working?!
           case "click": await loc.click(tos); break;
+          case "isChecked" : await loc.isChecked(tos); break;
           case "dblclick": await loc.dblclick(tos); break;
           case "click:text":
           case "link:text":
@@ -584,6 +589,8 @@ export function getTestCases(
 
             break;
           case "assert:exact": break;
+          case "assert:checked": break;
+          case "assert:!checked": break;          
           case "exists": break;
           case "exists:not": break;
           case "keys": break;
