@@ -1,3 +1,4 @@
+echo "Running run.sh..................................................."
 echo "Running Test Parallely from ./testrun.csv..."
 echo "Generating run-parallel-generated script..."
 npx playwright test ./tests/testrun.spec.ts --reporter=null

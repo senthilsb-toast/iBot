@@ -33,7 +33,8 @@ test('Generate Run Tests Script File', async () => {
   const lines: string[] = syncReadFile('../shell/testrun.csv').toString().split("\n");
   lines.shift()//skip header
   const cmdGenerateTestCases: string[] = [];
-  cmdGenerateTestCases.push('#Start-Process powershell.exe -WindowStyle Hidden -ArgumentList $args' + '\n')
+  cmdGenerateTestCases.push('#Start-Process powershell.exe -WindowStyle Hidden -ArgumentList $args')
+  cmdGenerateTestCases.push('echo "run-parallel-generated.sh....................................."')
   for (var line in lines) {
     logAll('File Line :', lines[line])
     if (lines[line][0] == '#') {
