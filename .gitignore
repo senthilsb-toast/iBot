@@ -5,11 +5,8 @@ _
 /playwright/.cache/
 #/tests-generatedfiles/**
 testcasefiles/~$*
-output.log
 *.log
 *.html
 shell/run-parallel-generated.ps1
-output.log
 .DS_Store
-*.log
-output.log
+
