@@ -12,3 +12,4 @@ shell/run-parallel-generated.ps1
 output.log
 .DS_Store
 *.log
+output.log
