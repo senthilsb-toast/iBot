@@ -36,32 +36,33 @@ test('Generate Run Tests Script File', async () => {
   cmdGenerateTestCases.push('#Start-Process powershell.exe -WindowStyle Hidden -ArgumentList $args')
   cmdGenerateTestCases.push('echo "run-parallel-generated.sh....................................."')
   for (var line in lines) {
-    logAll('File Line :', lines[line])
-    if (lines[line][0] == '#') {
-      logAll(`Line Skipped:${line}`)
+    if ((lines[line] !== "") && (lines[line][0] != '#')) {
+      logAll('File Line :', lines[line])
+      const rawLine: string[] = lines[line].split(';')
+      const fileName = rawLine[0]
+      const sheetNumber = rawLine[1]
+      const baseURL = rawLine[2] ?? ''
+      const userId = rawLine[3] ?? ''
+      const password = rawLine[4] ?? ''
+      let report = rawLine[5] ?? ''
+      let email = rawLine[6] ?? ''
+      if (report !== '') { report = `"${report}"` }
+      if (email !== '') { email = `"${email}"` }
+      if (isWin) {
+        const shellString = `$testargs = '-file .\\shell\\testrun.ps1 -testfile ${fileName} -sheet ${sheetNumber} -baseurl ${baseURL} -userid ${userId} -password ${password} -report "${report}" -email "${email}"'`
+        cmdGenerateTestCases.push(shellString)
+        cmdGenerateTestCases.push('Start-Process powershell.exe -ArgumentList $testargs')
+      } else {
+        //const shellString = `osascript -e 'tell application "Terminal" to do script "npx playwright test ${__dirname}/shell/testrun.sh ${fileName} ${sheetNumber} ${baseURL} ${userId} ${password} "${report}" "${email}" " '`
+        const shellString = `./shell/testrun.sh ${fileName} ${sheetNumber} ${baseURL} ${userId} ${password} ${report} ${email}`
+        cmdGenerateTestCases.push(shellString)
+      }
+    } else {
+      logAll(`Line Skipped:===> ${lines[line]}`)
       continue;
     }
-    const rawLine: string[] = lines[line].split(';')
-    const fileName = rawLine[0]
-    const sheetNumber = rawLine[1]
-    const baseURL = rawLine[2] ?? ''
-    const userId = rawLine[3] ?? ''
-    const password = rawLine[4] ?? ''
-    let report = rawLine[5] ?? ''
-    let email = rawLine[6] ?? ''
-    if(report!=''){report = `"${report}"`}
-    if(email!=''){email = `"${report}"`}
-    if (isWin) {
-      const shellString = `$testargs = '-file .\\shell\\testrun.ps1 -testfile ${fileName} -sheet ${sheetNumber} -baseurl ${baseURL} -userid ${userId} -password ${password} -report "${report}" -email "${email}"'`
-      cmdGenerateTestCases.push(shellString)
-      cmdGenerateTestCases.push('Start-Process powershell.exe -ArgumentList $testargs')
-    }else{
-      //const shellString = `osascript -e 'tell application "Terminal" to do script "npx playwright test ${__dirname}/shell/testrun.sh ${fileName} ${sheetNumber} ${baseURL} ${userId} ${password} "${report}" "${email}" " '`
-      const shellString = `./shell/testrun.sh ${fileName} ${sheetNumber} ${baseURL} ${userId} ${password} ${report} ${email}`
-      cmdGenerateTestCases.push(shellString)      
-    }
   }
-  
+
   const shellfile = isWin ? '../shell/run-parallel-generated.ps1' : '../shell/run-parallel-generated.sh'
 
   logAll('Writing to file...', shellfile)
