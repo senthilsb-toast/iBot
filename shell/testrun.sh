@@ -20,12 +20,13 @@ if [ "$6" == "report" ] && [ "$7" == "email" ];
 then
     echo "-------run tests and generate report and email------"
     echo "FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile && FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests/email.spec.ts --reporter=null"
-    FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile && FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests/email.spec.ts --reporter=null
+    FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile 
+    FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests/email.spec.ts --reporter=null
 elif [ "$6" == "report" ];
 then
     echo "------run tests and generate report-------"
     echo "FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile"
-    FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile --headed
+    FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile
 else
     FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile --reporter=null
 fi  
