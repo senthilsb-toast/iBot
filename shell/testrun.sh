@@ -12,19 +12,20 @@ tmpfile="$1"
 sheet="$2"
 usrid="$4"
 tmpfile="${tmpfile##*/}"
-tmpfile="${tmpfile/./-}"-"${sheet//,/-}"-"$usrid".spec.ts
-echo $tmpfile
+tmpfile=${tmpfile}"-"${sheet}"-"${usrid//[^[:alnum:]]/}.spec.ts
+//tmpfile=${tmpfile//[^[:alnum:]]/}
+echo TEMPFILE: $tmpfile
 FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests/generate.tests.spec.ts --reporter=null;
 if [ "$6" == "report" ] && [ "$7" == "email" ];  
 then
-    echo report and email
+    echo "-------run tests and generate report and email------"
     echo "FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile && FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests/email.spec.ts --reporter=null"
     FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile && FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests/email.spec.ts --reporter=null
 elif [ "$6" == "report" ];
 then
-    echo report
-    echo "FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile --headed"
-    FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile
+    echo "------run tests and generate report-------"
+    echo "FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile"
+    FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile --headed
 else
     FILE=$1 SHEET=$2 BASEURL=$3 USERID=$4 PASSWORD=$5 TESTCASEGENERATEDFILE=$tmpfile npx playwright test ./tests-generatedfiles/$tmpfile --reporter=null
 fi  
