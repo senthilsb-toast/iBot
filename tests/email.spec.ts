@@ -1,6 +1,6 @@
 import { test, TestInfo } from '@playwright/test'
 import nodemailer from 'nodemailer';
-import Mail from "nodemailer/lib/mailer";
+import { zip } from 'zip-a-folder';
 import {
   ACTION, ACTION_FORMAT, COMMENT_FORMAT,
   DATA, FILE, humanNowDateTime, LOCATOR, PRINT_FORMAT,
@@ -24,7 +24,10 @@ test.describe('iBot Tests Send Email', () => {
     logAll('---------- xxxx ----------')
     logAll()
   })
+  
   test('send email', async () => {
+    
+    await zip(`./reports/${TESTCASEGENERATEDFILE.replace(/['.]+/g, '-')}`,`./reports/${TESTCASEGENERATEDFILE.replace(/['.]+/g, '-')}.zip`);
 
     const transporter = nodemailer.createTransport({
       host: SMTP_HOST,
@@ -45,9 +48,9 @@ test.describe('iBot Tests Send Email', () => {
       html: "<b>Test Case Result Report!</b>",
       attachments: [
         {
-
-          filename: 'index.html',
-          path: `./reports/${TESTCASEGENERATEDFILE.replace(/['.]+/g, '-')}/index.html`
+          filename: `${TESTCASEGENERATEDFILE.replace(/['.]+/g, '-')}.zip`,
+          //path: `./reports/${TESTCASEGENERATEDFILE.replace(/['.]+/g, '-')}/index.html`
+          path: `./reports/${TESTCASEGENERATEDFILE.replace(/['.]+/g, '-')}.zip`
         },
       ]
     }).then(info => {
