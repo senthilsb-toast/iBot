@@ -15,7 +15,7 @@
     "exceljs": "^4.3.0",
     "handlebars": "^4.7.8",
     "moment": "^2.29.4",
-    "nodemailer": "^6.9.5",
+    "nodemailer": "^6.9.9",
     "zip-a-folder": "^3.1.3"
   }
 }
